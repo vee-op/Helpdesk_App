@@ -9,8 +9,7 @@ app.use(express.json());
 const PORT = process.env.PORT || 5000;
 
 const USER_SERVICE_URL =
-    process.env.USER_SERVICE_URL ||
-    "http://localhost:5001";
+    process.env.USER_SERVICE_URL;
 
 
 /*
@@ -19,15 +18,15 @@ const USER_SERVICE_URL =
 
 const pool = new Pool({
 
-    host: process.env.DB_HOST || "localhost",
+    host: process.env.DB_HOST,
 
-    port: process.env.DB_PORT || 5432,
+    port: process.env.DB_PORT,
 
-    database: process.env.DB_NAME || "tickets",
+    database: process.env.DB_NAME,
 
-    user: process.env.DB_USER || "postgres",
+    user: process.env.DB_USER,
 
-    password: process.env.DB_PASSWORD || "postgres"
+    password: process.env.DB_PASSWORD
 });
 
 
@@ -38,8 +37,7 @@ const pool = new Pool({
 const redis = createClient({
 
     url:
-        process.env.REDIS_URL ||
-        "redis://localhost:6379"
+        process.env.REDIS_URL 
 });
 
 
