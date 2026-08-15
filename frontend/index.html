@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helpdesk</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Support Helpdesk</h1>
+
+        <section>
+            <h2>Create Ticket</h2>
+
+            <input id="name" placeholder="Your name">
+            <input id="email" placeholder="Your email">
+            <input id="subject" placeholder="Subject">
+
+            <textarea
+                id="description"
+                placeholder="Describe your problem">
+            </textarea>
+
+            <button onclick="createTicket()">
+                Submit Ticket
+            </button>
+
+            <p id="message"></p>
+        </section>
+
+        <section>
+
+            <h2>Tickets</h2>
+
+            <button onclick="loadTickets()">
+                Refresh Tickets
+            </button>
+
+            <div id="tickets"></div>
+
+        </section>
+
+    </div>
+
+    <script src="app.js"></script>
+
+</body>
+</html>
