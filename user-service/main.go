@@ -26,11 +26,11 @@ func main() {
 	 * Database configuration
 	 */
 
-	dbHost := getEnv("DB_HOST", "localhost")
+	dbHost := getEnv("DB_HOST", "")
 	dbPort := getEnv("DB_PORT", "5432")
-	dbName := getEnv("DB_NAME", "users")
-	dbUser := getEnv("DB_USER", "postgres")
-	dbPassword := getEnv("DB_PASSWORD", "postgres")
+	dbName := getEnv("DB_NAME", "")
+	dbUser := getEnv("DB_USER", "")
+	dbPassword := getEnv("DB_PASSWORD", "")
 
 
 	/*

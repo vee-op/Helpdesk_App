@@ -1,0 +1,85 @@
+services:
+  frontend:
+    build: 
+      context: ./frontend
+    container_name: helpdesk-frontend
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    networks:
+      - app-network
+  notification-service:
+    build:
+      context: ./notification-service
+    container_name: helpdesk-notification
+    env_file:
+      - .env
+    restart: unless-stopped
+    depends_on:
+      redis: 
+        condition: service_healthy
+    networks:
+      - app-network
+  redis:
+    image: redis:8
+    container_name: helpdesk-redis
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - app-network
+  ticket-service:
+    build:
+      context: ./ticket-service
+    container_name: helpdesk-ticket
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis: 
+        condition: service_healthy
+      user-service: 
+        condition: service_started
+    networks:
+      - app-network
+      - db-network
+    restart: unless-stopped
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    container_name: helpdesk-user
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+      - db-network
+    restart: unless-stopped
+  postgres:
+    image: postgres:16-alpine
+    container_name: helpdesk-postgres
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - db-network
+networks:
+  app-network:
+    name: app-network
+    driver: bridge
+  db-network:
+    name: db-network
+    driver: bridge
