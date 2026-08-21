@@ -14,4 +14,6 @@ FROM alpine:3.23.5
 
 COPY --from=builder /usr/local/bin/mygoapp /usr/local/bin/mygoapp
 
+EXPOSE 5001
+
 CMD ["mygoapp"]

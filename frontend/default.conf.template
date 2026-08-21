@@ -5,9 +5,7 @@ server {
     server_name _;
 
 
-    /*
-     * Frontend
-     */
+    # Frontend
 
     location / {
 
@@ -22,14 +20,12 @@ server {
     }
 
 
-    /*
-     * Ticket Service
-     */
+    # Ticket Service
 
     location /api/tickets {
 
         proxy_pass
-            http://ticket-service:5000/tickets;
+             ${TICKET_SERVICE_URL}/tickets;
 
         proxy_set_header
             Host $host;
@@ -42,14 +38,12 @@ server {
     }
 
 
-    /*
-     * User Service
-     */
+    # User Service
 
     location /api/users {
 
         proxy_pass
-            http://user-service:5001/users;
+            ${USER_SERVICE_URL}/users;
 
         proxy_set_header
             Host $host;

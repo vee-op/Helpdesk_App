@@ -6,6 +6,6 @@ COPY style.css /usr/share/nginx/html
 
 COPY app.js /usr/share/nginx/html
 
-COPY default.conf /etc/nginx/conf.d/default.conf
+COPY default.conf.template /etc/nginx/conf.d/default.conf.template
 
 EXPOSE 80

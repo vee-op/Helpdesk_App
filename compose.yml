@@ -6,6 +6,9 @@ services:
     ports:
       - "8080:80"
     restart: unless-stopped
+    environment:
+      TICKET_SERVICE_URL: http://ticket-service:5000
+      USER_SERVICE_URL: http://user-service:5001
     networks:
       - app-network
   notification-service:
@@ -52,7 +55,7 @@ services:
     build:
       context: ./user-service
       dockerfile: Dockerfile
-    container_name: helpdesk-user
+    container_name: helpdesk-user-service
     env_file:
       - .env
     depends_on:
